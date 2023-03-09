@@ -9,7 +9,7 @@ all: libsandbox.so sandboxify
 # static libseccomp to avoid potential clash with the libseccomp the
 # sandboxed process might be using
 libsandbox.so: sandbox.o preload.o
-	$(CC) -shared -Wl,--version-script=libsandbox.version -o $@ $^ libseccomp/src/.libs/libseccomp.a
+	$(CC) -shared -Wl,--version-script=libsandbox.version -o $@ $^ -lseccomp
 
 sandboxify: sandboxify.o sandbox.o
-	$(CC) -o $@ $^ libseccomp/src/.libs/libseccomp.a
+	$(CC) -o $@ $^ -lseccomp
